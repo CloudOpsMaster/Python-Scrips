@@ -1,0 +1,19 @@
+import sys
+import socket
+print ("Port scanner")
+print (" ")
+host = input("Input host name or IP address:  ")
+print ("____________________________________")
+for port in range(0, 65535):
+    s = socket.socket()
+    s.settimeout(1)
+    try:
+        s.connect((host, port))
+    except socket.error:
+        pass
+    else:
+        s.close
+        print (host + ': ' + str(port) + ' active')
+print ("______________________________________")
+print ("Finished")        
+
