@@ -1,17 +1,21 @@
 #!/usr/bin/python3
 
-import subprocess as sp
 
 freAddr = []
-for network in range(1, 10):
-    ip = "8.8.8."+str(network)
-    status, result = sp.getstatusoutput("ping " + ip)
-    if status == 0:
-        print("System " + ip + " is UP !")
+import os
+
+ip = '192.168.31.'
+for network in range(124, 130):
+    package = os.popen('ping '+ip+str(network)).read()
+    package = package.split('\n')[-3:]
+    Minimum = package[0]
+    if Minimum == 'Approximate round trip times in milli-seconds:':
+        print( ip+str(network) + " is UP !")
     else:
-        freAddr.append(ip)
- 
-print("Not use: ")
+        #print( 'Ping request could not find host ' + ip+str(network) )
+        freAddr.append( 'Ping request could not find host '+ip+str(network))
+print("Could not find hosts: ")
 for free in freAddr:
     print(free)   
 
+  
