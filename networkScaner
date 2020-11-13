@@ -1,0 +1,17 @@
+#!/usr/bin/python3
+
+import subprocess as sp
+
+freAddr = []
+for network in range(1, 10):
+    ip = "8.8.8."+str(network)
+    status, result = sp.getstatusoutput("ping " + ip)
+    if status == 0:
+        print("System " + ip + " is UP !")
+    else:
+        freAddr.append(ip)
+ 
+print("Not use: ")
+for free in freAddr:
+    print(free)   
+
