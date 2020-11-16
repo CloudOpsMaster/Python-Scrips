@@ -1,0 +1,36 @@
+import psycopg2
+
+
+con = psycopg2.connect(
+  user = "postgres",
+  password = "555555",
+  host = "127.0.0.1",
+  port = "5443",
+  database = "store"
+)
+
+print("Database opened successfully")
+cur = con.cursor()
+
+
+cur.execute("START TRANSACTION;")
+
+try:
+    cur.execute("UPDATE accounts SET amount = amount - 5000 WHERE id =1;")
+    cur.execute("UPDATE accounts SET amount = amount + 5000 WHERE id =2;")
+    cur.execute("COMMIT;")
+except:
+    cur.execute("ROLLBACK;")
+    cur.execute("Error")
+
+
+cur.execute("select * FROM accounts;")
+for row in cur:
+    print(row)
+
+con.commit()  
+print("Record inserted successfully")  
+
+con.close()
+
+
